@@ -1,29 +1,3 @@
 <h1> Birth a new cat </h1>
 
-<form action="<%= cats_url %>" method="post">
-    <label>Name: <input type="text" name="cat[name]" value=""></label> <br>
-
-    <label>
-      Sex: <input type="radio" name="cat[sex]" value="M">M
-      <input type="radio" name="cat[sex]" value="F">F
-    </label> <br>
-
-    <label>Color:
-      <select name="cat[color]">
-        <option value="" disabled selected="selected">SELECT A COLOR</option>
-        <% Cat::COLORS.each do |color| %>
-          <option value="<%= color %>"><%= color %></option>
-        <% end %>
-      </select>
-    </label> <br>
-
-    <label>Birth Date: <input type="date" name="cat[birth_date]"></label><br>
-
-    <label>Description:
-      <br>
-      <textarea name="cat[description]"></textarea>
-    </label><br>
-
-    <input type="submit" name="" value="Birth me!">
-
-</form>
+<%= render 'form', cat: @cat, action: :post%>

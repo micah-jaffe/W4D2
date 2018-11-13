@@ -1,0 +1,51 @@
+
+
+<% if action == :edit %>
+  <% action_url = cat_url(cat) %>
+  <% button_text = "Edit a cat!" %>
+  <% def get_params(cat, param) %>
+      <% cat.send(param) %>
+  <% end %>
+
+<% else %>
+  <% action_url = cats_url %>
+  <% button_text = "Create a cat!" %>
+  <% def get_params(cat, param) %>
+    <% "" %>
+  <% end %>
+<% end %>
+
+<form action="<%= action_url %>" method="post">
+  <% if action == :edit %>
+    <input type="hidden" name="_method" value="patch">
+  <% end %>
+
+    <label>Name: <input type="text" name="cat[name]" value="<%= get_params(cat, :name) %>"></label> <br>
+    <label>
+      Sex:
+      <input type="radio" name="cat[sex]" value="M" <%= get_params(cat, :sex) == "M" ? "checked" : ""%> >M
+      <input type="radio" name="cat[sex]" value="F" <%= get_params(cat, :sex) == "F" ? "checked" : ""%> >F
+    </label> <br>
+
+    <label>
+      Color:
+      <select name="cat[color]">
+        <option value="" disabled <%= get_params(cat, :color) == "" ? "selected" : ""%>>SELECT A COLOR</option>
+
+        <% Cat::COLORS.each do |color| %>
+          <option value="<%= color %>" <%= get_params(cat, :color) == color ? "selected" : ""%>><%= color %></option>
+        <% end %>
+      </select>
+
+    </label> <br>
+
+    <label>Birth Date: <input type="date" name="cat[birth_date]" value="<%= get_params(cat, :birth_date) %>"></label><br>
+
+    <label>Description:
+      <br>
+      <textarea name="cat[description]"><%=get_params(cat, :description)%></textarea>
+    </label><br>
+
+    <input type="submit" name="" value="<%= button_text %>">
+
+</form>
