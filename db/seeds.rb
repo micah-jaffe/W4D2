@@ -7,4 +7,4 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 
-felix = Cat.new(name: 'Felix', color: 'brown', birth_date: '2015/01/01', sex: 'M', description: 'a cat')
+felix = Cat.create!(name: 'Felix', color: 'brown', birth_date: '2015/01/01', sex: 'M', description: 'a cat')
