@@ -3,30 +3,33 @@
 <form action="<%= cat_url(@cat) %>" method="post">
   <input type="hidden" name="_method" value="patch">
 
-    <label>Name: <input type="text" name="cat[name]" value=""></label> <br>
+    <label>Name: <input type="text" name="cat[name]" value="<%= @cat.name %>"></label> <br>
 
 
     <label>
-      Sex: <input type="radio" name="cat[sex]" value="M">M
-      <input type="radio" name="cat[sex]" value="F">F
+      Sex:
+      <input type="radio" name="cat[sex]" value="M" <%= @cat.sex == "M" ? "checked" : ""%> >M
+      <input type="radio" name="cat[sex]" value="F" <%= @cat.sex == "F" ? "checked" : ""%> >F
     </label> <br>
 
-    <label>Color:
+    <label>
+      Color:
       <select name="cat[color]">
-        <option value="" disabled selected="selected">SELECT A COLOR</option>
+        <option value="" disabled>SELECT A COLOR</option>
+
         <% Cat::COLORS.each do |color| %>
-          <option value="<%= color %>"><%= color %></option>
+          <option value="<%= color %>" selected=<%= @cat.color == color ? "selected" : ""%>><%= color %></option>
         <% end %>
       </select>
     </label> <br>
 
-    <label>Birth Date: <input type="date" name="cat[birth_date]"></label><br>
+    <label>Birth Date: <input type="date" name="cat[birth_date]" value="<%= @cat.birth_date %>"></label><br>
 
     <label>Description:
       <br>
-      <textarea name="cat[description]"></textarea>
+      <textarea name="cat[description]"><%= @cat.description %></textarea>
     </label><br>
 
-    <input type="submit" name="" value="Birth me!">
+    <input type="submit" name="" value="Edit me!">
 
 </form>
