@@ -22,8 +22,22 @@ class CatRentalRequest < ApplicationRecord
     foreign_key: :cat_id,
     class_name: 'Cat'
 
+  def approve!
+    status = 'APPROVED'
+    save
+
+    overlapping_pending_requests.each do |request|
+      request.status = 'DENIED'
+      request.save
+    end
+  end
+
+  def deny!
+    update(status: 'DENIED')
+  end
+
   private
-  
+
   def overlapping_requests
     CatRentalRequest
       .where(cat_id: self.cat_id)
@@ -39,6 +53,10 @@ class CatRentalRequest < ApplicationRecord
     if overlapping_approved_requests.exists?
       errors[:base] << 'Invalid date range - already taken!'
     end
+  end
+
+  def overlapping_pending_requests
+    overlapping_requests.where(status: 'PENDING')
   end
 
 end
