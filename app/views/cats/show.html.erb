@@ -31,4 +31,14 @@
 </tbody>
 </table>
 
+<h2>My requests...</h2>
+
+<ul>
+  <% @cat.cat_rental_requests.sort_by { |r| r.start_date }.each do |request| %>
+    <li>Start Date: <%= request.start_date %>, End Date: <%= request.end_date %>,  Status: <%= request.status %> </li>
+  <% end %>
+</ul>
+
+
+<a href="<%= new_cat_rental_request_url %>">Book me!</a><br>
 <a href="<%= cats_url %>">More cats!</a>
